@@ -18,6 +18,11 @@ RUN npm install -g typescript
 COPY . .
 RUN npm run build && npm run build-web
 
+# public/ArduinoBoss.ino is a symlink into ../arduino/ so the canonical sketch
+# has a single source of truth. The runtime stage doesn't copy arduino/, so
+# resolve the symlink into a real file inside public/ before that COPY runs.
+RUN rm -f public/ArduinoBoss.ino && cp arduino/ArduinoBoss/ArduinoBoss.ino public/ArduinoBoss.ino
+
 # ---------- Runtime stage ----------
 FROM node:20-alpine
 
