@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lobby - Arduino Boss Battle</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/app.css">
+	<script src="/js/boss-svg.js"></script>
+	<script src="/js/api.js"></script>
+	<script src="/js/serial.js"></script>
+	<script src="/js/socket.io.min.js"></script>
+	<script src="/js/ws.js"></script>
+	<script src="/js/emoji.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="nav">
+			<a href="/">Home</a>
+			<a href="#" id="goGame">Game Screen</a>
+		</div>
+
+		<div class="row">
+			<h1 style="margin:0;">The Boss Awaits</h1>
+			<span class="spacer"></span>
+			<span class="code-pill">
+				<span class="code-label-text">Lobby</span>
+				<span class="code-value" id="codeLabel">-----</span>
+			</span>
+		</div>
+
+		<div class="card" style="margin-top:14px;">
+			<div class="row arduino-row" style="gap:10px;">
+				<span style="font-weight:bold;">Your Arduino:</span>
+				<span class="serial-status" id="serialStatus">not connected</span>
+				<button class="btn" id="connectBtn">Connect Arduino</button>
+				<button class="btn btn-ghost" id="disconnectBtn" style="display:none;">Disconnect</button>
+				<a class="btn btn-ghost" href="/test.hott" target="_blank" rel="noopener">Test Board ↗</a>
+				<span class="spacer"></span>
+				<span class="dim" style="font-size:13px;">Plug in your Arduino now so you're ready when the game starts.</span>
+			</div>
+		</div>
+		<p class="dim">You're in. Wait here while everyone else joins. Your teacher will start the game when ready.</p>
+
+		<div class="lobby-grid">
+			<div class="boss-stage card" id="bossStage">
+				<div id="bossSlot"></div>
+				<div class="boss-name">VOIDREND, EATER OF BREADBOARDS</div>
+				<p class="dim" style="margin-top:6px;text-align:center;">
+					Phase: <span id="phaseLabel">lobby</span>
+				</p>
+			</div>
+
+			<div class="card">
+				<h2>Joined Players</h2>
+				<ul class="player-list" id="playerList">
+					<li class="empty">Nobody yet — be the first!</li>
+				</ul>
+				<div class="row" style="margin-top:14px;">
+					<span id="myStatus" class="dim">You are <b id="meName">…</b>.</span>
+					<span class="spacer"></span>
+					<button class="btn btn-ghost" id="leaveBtn">Leave Lobby</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="card" style="margin-top:14px;">
+			<h2 style="margin:0 0 8px 0;font-size:18px;">React</h2>
+			<p class="dim" style="font-size:13px;margin:0 0 8px 0;">Tap an emoji to send it to everyone.</p>
+			<div id="emojiBar"></div>
+		</div>
+	</div>
+
+	<div class="countdown-overlay" id="countdownOverlay">
+		<div class="label" id="countdownLabel">GET READY</div>
+		<div class="number" id="countdownNumber">3</div>
+		<div class="sub" id="countdownSub"></div>
+	</div>
+
+	<div class="toast" id="toast"></div>
+
+	<script src="/js/lobby.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Arduino Boss Battle</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+	<div class="container">
+		<h1>Arduino Boss Battle</h1>
+		<p class="dim">Defeat the boss together. Press the button on your station to block its attacks.</p>
+
+		<div class="card" id="step1">
+			<h2>1. Enter Lobby Code</h2>
+			<p class="dim">Enter the 5-digit lobby code your teacher gave you.</p>
+			<form id="codeForm" class="row" onsubmit="return false;">
+				<input
+					type="text"
+					id="codeInput"
+					inputmode="numeric"
+					pattern="[0-9]{5}"
+					maxlength="5"
+					placeholder="12345"
+					autocomplete="off"
+					style="font-size:32px;letter-spacing:8px;width:200px;text-align:center;">
+				<button class="btn" id="codeBtn" type="submit">Continue</button>
+			</form>
+			<p class="dim" id="codeErr" style="color:var(--bad);min-height:1em;margin-top:8px;"></p>
+		</div>
+
+		<div class="card" id="step2" style="display:none;">
+			<div class="row">
+				<h2 style="margin:0;">2. Pick Your Name</h2>
+				<span class="spacer"></span>
+				<span class="code-pill"><span class="code-label-text">Lobby</span><span class="code-value" id="step2Code">-----</span></span>
+				<button class="btn btn-ghost" id="backBtn" type="button">← Back</button>
+			</div>
+			<p class="dim" style="margin-top:12px;">Click an available name to join. Names that are already taken are greyed out and cannot be picked.</p>
+			<div class="name-grid" id="namesGrid" style="margin-top:12px;"></div>
+			<p class="dim" id="nameErr" style="color:var(--bad);min-height:1em;margin-top:8px;"></p>
+		</div>
+
+		<div class="card" style="margin-top:18px;">
+			<div class="row">
+				<a class="btn btn-ghost" href="/teacher.hott">Teacher Console</a>
+				<a class="btn btn-ghost" href="/test.hott">Board Test</a>
+				<span class="dim spacer">Open Board Test to verify a station's wiring without joining a lobby.</span>
+			</div>
+		</div>
+
+		<p class="dim" style="margin-top:18px;">
+			Browser support: Chrome or Edge (Web Serial). Site must be HTTPS in production.
+		</p>
+	</div>
+
+	<script src="/js/api.js"></script>
+	<script src="/js/socket.io.min.js"></script>
+	<script src="/js/ws.js"></script>
+	<script src="/js/index.js"></script>
+</body>
+</html>

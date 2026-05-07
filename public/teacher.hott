@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Teacher - Arduino Boss Battle</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/app.css">
+	<script src="/js/api.js"></script>
+	<script src="/js/socket.io.min.js"></script>
+	<script src="/js/ws.js"></script>
+	<script src="/js/emoji.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="nav">
+			<a href="/">Home</a>
+			<a href="/teacher.hott">All Lobbies</a>
+		</div>
+
+		<h1 id="pageTitle">Teacher</h1>
+
+		<div id="listView" style="display:none;">
+			<div class="card">
+				<div class="row">
+					<h2 style="margin:0;">Lobbies</h2>
+					<span class="spacer"></span>
+					<button class="btn" id="createBtn">Create New Lobby</button>
+				</div>
+				<p class="dim">Each lobby has its own 5-digit join code. Share the code with players.</p>
+				<table style="width:100%;border-collapse:collapse;margin-top:10px;" id="lobbiesTable">
+					<thead>
+						<tr style="text-align:left;color:var(--ink-dim);font-size:13px;">
+							<th style="padding:6px;">Code</th>
+							<th style="padding:6px;">Phase</th>
+							<th style="padding:6px;">Players</th>
+							<th style="padding:6px;">Names</th>
+							<th style="padding:6px;"></th>
+						</tr>
+					</thead>
+					<tbody id="lobbiesBody"></tbody>
+				</table>
+				<p class="dim" id="noLobbies" style="display:none;">No lobbies yet — click "Create New Lobby".</p>
+			</div>
+		</div>
+
+		<div id="detailView" style="display:none;">
+			<div class="card">
+				<div class="row">
+					<h2 style="margin:0;">Lobby <span id="detailCode" style="color:var(--accent);letter-spacing:3px;font-size:32px;"></span></h2>
+					<span class="spacer"></span>
+					<span class="dim">Phase: <b id="detailPhase">-</b></span>
+					<a class="btn btn-ghost" href="/teacher.hott">← All Lobbies</a>
+				</div>
+				<div class="row" style="margin-top:8px;">
+					<span class="dim">Share the code with players: <code style="background:var(--bg-1);padding:2px 8px;border-radius:4px;" id="shareCode">-</code></span>
+				</div>
+				<div class="row" style="margin-top:14px;">
+					<button class="btn" id="startBtn">Start Game</button>
+					<button class="btn btn-danger" id="resetBtn">Reset to Lobby</button>
+					<a class="btn btn-ghost" id="spectatorLink" href="#" target="_blank" rel="noopener">📺 Spectator View ↗</a>
+					<span class="spacer"></span>
+					<button class="btn btn-danger" id="deleteBtn">Delete Lobby</button>
+				</div>
+			</div>
+
+			<div class="card" id="bossActionCard" style="margin-top:14px;display:none;">
+				<div id="bossActionInner"></div>
+			</div>
+
+			<div class="card" style="margin-top:14px;">
+				<h2>Joined Players</h2>
+				<ul class="player-list" id="playersList">
+					<li class="empty">No one yet.</li>
+				</ul>
+			</div>
+
+			<div class="card" style="margin-top:14px;border:2px dashed var(--accent-2);">
+				<h2 style="margin:0 0 8px 0;">🤫 Vulnerability Demo</h2>
+				<p class="dim" style="margin:0 0 8px 0;font-size:13px;">When enabled, any player can hit a hidden API endpoint to play sounds on another player's Arduino — exposing how an unsecured network interface can be abused. Hint to the kids: "open your browser console" 😉</p>
+				<div class="row" style="gap:10px;">
+					<label style="display:inline-flex;align-items:center;gap:8px;cursor:pointer;">
+						<input type="checkbox" id="pranksToggle" style="width:20px;height:20px;cursor:pointer;">
+						<span style="font-weight:bold;">Allow Pranks</span>
+					</label>
+					<span class="dim" id="pranksStatus" style="font-size:13px;"></span>
+				</div>
+			</div>
+
+			<div class="card" style="margin-top:14px;">
+				<h2 style="margin:0 0 8px 0;">Broadcast a Message</h2>
+				<p class="dim" style="margin:0 0 8px 0;font-size:13px;">Pops up on every player's screen for a few seconds.</p>
+				<div class="row" style="gap:8px;">
+					<input type="text" id="broadcastInput" maxlength="120" placeholder="Get ready, here we go!" style="flex:1;min-width:200px;">
+					<button class="btn" id="broadcastBtn">Send to All</button>
+				</div>
+			</div>
+
+			<div class="card" style="margin-top:14px;">
+				<h2>Approved Names</h2>
+				<p class="dim">Players in this lobby can only claim names from this list. Each lobby has its own list — adding a name here doesn't affect other lobbies.</p>
+				<div class="row">
+					<input type="text" id="newNameInput" placeholder="Add a new name">
+					<button class="btn" id="addNameBtn">Add</button>
+				</div>
+				<div class="name-grid" id="namesGrid" style="margin-top:14px;"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="countdown-overlay" id="countdownOverlay">
+		<div class="label" id="countdownLabel">GET READY</div>
+		<div class="number" id="countdownNumber">3</div>
+		<div class="sub" id="countdownSub"></div>
+	</div>
+
+	<div class="toast" id="toast"></div>
+
+	<script src="/js/teacher.js"></script>
+</body>
+</html>

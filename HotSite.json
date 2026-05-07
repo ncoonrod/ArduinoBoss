@@ -1,0 +1,31 @@
+{
+	"name": "arduinoboss",
+	"server": {
+		"globalApi": "AppAPI",
+		"serveDirectories": [
+			{
+				"route": "/",
+				"localPath": "./public/"
+			}
+		]
+	},
+	"testing": {
+		"web": {
+			"testerAPIUrl": "http://127.0.0.1:8182"
+		},
+		"api": {
+			"maps": [
+				"AppAPI"
+			]
+		}
+	},
+	"apis": {
+		"AppAPI": {
+			"jsapi": "./js/arduinobossWeb_AppAPI.js",
+			"libraryName": "arduinobossWeb",
+			"apiName": "AppAPI",
+			"filepath": "./build/AppAPI.js",
+			"map": []
+		}
+	}
+}

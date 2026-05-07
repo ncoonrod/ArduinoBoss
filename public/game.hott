@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Game - Arduino Boss Battle</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/app.css">
+	<script src="/js/boss-svg.js"></script>
+	<script src="/js/api.js"></script>
+	<script src="/js/serial.js"></script>
+	<script src="/js/socket.io.min.js"></script>
+	<script src="/js/ws.js"></script>
+	<script src="/js/emoji.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="nav">
+			<a href="/">Home</a>
+			<a href="#" id="goLobby">Lobby</a>
+		</div>
+
+		<div class="row">
+			<h1 style="margin:0;">Boss Battle</h1>
+			<span class="spacer"></span>
+			<span class="code-pill">
+				<span class="code-label-text">Lobby</span>
+				<span class="code-value" id="codeLabel">-----</span>
+			</span>
+		</div>
+		<div class="card" style="margin-top:14px;">
+			<div class="row" style="gap:10px;">
+				<span style="font-weight:bold;">Your Arduino:</span>
+				<span class="serial-status" id="serialStatus">not connected</span>
+				<button class="btn" id="connectBtn">Connect Arduino</button>
+				<button class="btn btn-ghost" id="disconnectBtn" style="display:none;">Disconnect</button>
+			</div>
+		</div>
+
+		<div class="card" id="meCard" style="margin-top:14px;">
+			<div class="row">
+				<span>Playing as: <b id="meName">(none — go to lobby first)</b></span>
+				<span class="spacer"></span>
+				<button class="btn btn-danger" id="devPressBtn" style="display:none;" title="On-screen alternative to the Arduino button.">🛡️ Block</button>
+			</div>
+		</div>
+
+		<div class="card" style="margin-top:14px;">
+			<div class="bar-block">
+				<div class="hp-label"><span>BOSS HP</span><span id="bossHpLabel">-/-</span></div>
+				<div class="hp-bar"><div class="hp-fill" id="bossHpFill" style="width:100%"></div></div>
+			</div>
+			<h2 style="margin:14px 0 6px 0;font-size:18px;">Players</h2>
+			<div class="player-cards" id="playerCards"></div>
+		</div>
+
+		<div class="card boss-stage" style="margin-top:14px;min-height:280px;">
+			<div id="bossSlot"></div>
+			<div id="phaseMsg" class="dim" style="margin-top:10px;text-align:center;"></div>
+		</div>
+
+		<div class="card" style="margin-top:14px;">
+			<h2 style="margin:0 0 8px 0;font-size:18px;">React</h2>
+			<div id="emojiBar"></div>
+		</div>
+
+		<div class="card" style="margin-top:14px;">
+			<details>
+				<summary class="dim">Serial Console (debug)</summary>
+				<pre id="serialLog" style="height:140px;overflow:auto;background:#000;color:#5dffa1;padding:8px;border-radius:6px;font-size:12px;"></pre>
+			</details>
+		</div>
+	</div>
+
+	<div class="attack-overlay" id="attackOverlay">
+		<div class="attack-msg">PRESS BUTTON!</div>
+	</div>
+
+	<div class="countdown-overlay" id="countdownOverlay">
+		<div class="label" id="countdownLabel">GET READY</div>
+		<div class="number" id="countdownNumber">3</div>
+		<div class="sub" id="countdownSub"></div>
+	</div>
+
+	<div class="toast" id="toast"></div>
+
+	<script src="/js/game.js"></script>
+</body>
+</html>

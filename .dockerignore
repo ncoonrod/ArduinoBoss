@@ -1,0 +1,21 @@
+# Don't ship build artifacts — the Dockerfile rebuilds them in the builder stage
+# from a clean dependency install.
+node_modules
+build
+build-web
+tsconfig.tsbuildinfo
+
+# Local dev cruft
+.git
+.gitignore
+.vscode
+.idea
+*.log
+.DS_Store
+
+# The Arduino sketch isn't part of the web app
+arduino
+
+# Local secrets, if any
+.env
+.env.*

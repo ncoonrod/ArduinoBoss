@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Board Test - Arduino Boss Battle</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/app.css">
+	<script src="/js/serial.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="nav">
+			<a href="/">Home</a>
+			<a href="/teacher.hott">Teacher</a>
+		</div>
+
+		<div class="row">
+			<h1 style="margin:0;">Board Test</h1>
+			<span class="spacer"></span>
+			<span class="code-pill">
+				<span class="code-label-text">Mode</span>
+				<span class="code-value">TEST</span>
+			</span>
+		</div>
+		<p class="dim">Use this page to verify each piece of an Arduino station before handing it to a kid. Connect, then run through each section. The Arduino does NOT need to be in a lobby for this.</p>
+
+		<div class="card" style="margin-top:14px;">
+			<div class="row" style="gap:10px;">
+				<span style="font-weight:bold;">Arduino:</span>
+				<span class="serial-status" id="serialStatus">not connected</span>
+				<button class="btn" id="connectBtn">Connect Arduino</button>
+				<button class="btn btn-ghost" id="disconnectBtn" style="display:none;">Disconnect</button>
+				<span class="spacer"></span>
+				<span class="dim" style="font-size:13px;">Plug in via USB. Close the Arduino IDE Serial Monitor first.</span>
+			</div>
+		</div>
+
+		<div class="card" style="margin-top:14px;">
+			<h2 style="margin:0 0 8px 0;">1. LED (D13 → 220Ω → GND)</h2>
+			<p class="dim" style="margin:0 0 8px 0;font-size:13px;">Click On — the LED on the breadboard should light. Click Blink — it should flash 5 times.</p>
+			<div class="row" style="gap:8px;">
+				<button class="btn" id="ledOnBtn">LED On</button>
+				<button class="btn btn-ghost" id="ledOffBtn">LED Off</button>
+				<button class="btn" id="ledBlinkBtn">Blink 5×</button>
+			</div>
+		</div>
+
+		<div class="card" style="margin-top:14px;">
+			<h2 style="margin:0 0 8px 0;">2. Buzzer (D8 → GND)</h2>
+			<p class="dim" style="margin:0 0 8px 0;font-size:13px;">Each preset plays for 600 ms. Use Off if it gets stuck.</p>
+			<div class="row" style="gap:8px;flex-wrap:wrap;">
+				<button class="btn" data-tone="220">220 Hz</button>
+				<button class="btn" data-tone="440">440 Hz</button>
+				<button class="btn" data-tone="880">880 Hz</button>
+				<button class="btn" data-tone="1320">1320 Hz</button>
+				<button class="btn" data-tone="1760">1760 Hz</button>
+				<button class="btn btn-ghost" id="buzzOffBtn">Buzzer Off</button>
+				<button class="btn" id="scaleBtn">Play Scale</button>
+			</div>
+			<div class="row" style="gap:8px;margin-top:12px;">
+				<label class="dim" style="min-width:90px;">Custom: <span id="freqLabel">800</span> Hz</label>
+				<input type="range" id="freqSlider" min="100" max="3000" step="10" value="800" style="flex:1;">
+				<button class="btn" id="freqPlayBtn">Play</button>
+			</div>
+		</div>
+
+		<div class="card" style="margin-top:14px;">
+			<h2 style="margin:0 0 8px 0;">3. Inputs</h2>
+			<p class="dim" style="margin:0 0 8px 0;font-size:13px;">Press the tactile button — the Button indicator should light green. The slide switch is optional.</p>
+			<div class="row" style="gap:18px;flex-wrap:wrap;">
+				<div class="row" style="gap:8px;">
+					<span style="font-weight:bold;">Button (D2):</span>
+					<span id="btnIndicator" style="display:inline-block;width:20px;height:20px;border-radius:50%;background:#444;border:2px solid var(--bg-2);"></span>
+					<span class="dim" id="btnLastEvent">no events yet</span>
+				</div>
+				<div class="row" style="gap:8px;">
+					<span style="font-weight:bold;">Switch (D4):</span>
+					<span id="swIndicator" style="display:inline-block;width:20px;height:20px;border-radius:4px;background:#444;border:2px solid var(--bg-2);"></span>
+					<span class="dim" id="swLastEvent">no events yet</span>
+				</div>
+			</div>
+			<div class="row" style="gap:14px;margin-top:14px;">
+				<span class="dim">Press count: <b id="btnPressCount">0</b></span>
+				<span class="dim">Switch toggles: <b id="swToggleCount">0</b></span>
+				<button class="btn btn-ghost" id="resetCountsBtn">Reset counts</button>
+			</div>
+		</div>
+
+		<div class="card" style="margin-top:14px;">
+			<h2 style="margin:0 0 8px 0;">4. Game-style ATTACK</h2>
+			<p class="dim" style="margin:0 0 8px 0;font-size:13px;">Triggers the same combo the boss sends in-game: LED on + 880 Hz tone for 1.5 s. Press the button while it's running and you should hear/see it stop early (the firmware turns off on LED:OFF — but for this combined ATTACK pulse, it just expires).</p>
+			<button class="btn btn-danger" id="attackBtn">Send ATTACK 1500ms</button>
+		</div>
+
+		<div class="card" style="margin-top:14px;">
+			<h2 style="margin:0 0 8px 0;">5. Auto Test Walk-through</h2>
+			<p class="dim" style="margin:0 0 8px 0;font-size:13px;">Runs through every check in order. Watch the serial console at the bottom.</p>
+			<div class="row" style="gap:8px;">
+				<button class="btn" id="autoBtn">Run Auto Test</button>
+				<span class="dim" id="autoStatus"></span>
+			</div>
+		</div>
+
+		<div class="card" style="margin-top:14px;">
+			<details open>
+				<summary class="dim">Serial Console</summary>
+				<pre id="serialLog" style="height:160px;overflow:auto;background:#000;color:#5dffa1;padding:8px;border-radius:6px;font-size:12px;"></pre>
+			</details>
+		</div>
+	</div>
+
+	<div class="toast" id="toast"></div>
+
+	<script src="/js/test.js"></script>
+</body>
+</html>

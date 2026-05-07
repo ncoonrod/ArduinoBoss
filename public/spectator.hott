@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Spectator - Arduino Boss Battle</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/app.css">
+	<script src="/js/boss-svg.js"></script>
+	<script src="/js/api.js"></script>
+	<script src="/js/socket.io.min.js"></script>
+	<script src="/js/ws.js"></script>
+	<script src="/js/emoji.js"></script>
+</head>
+<body>
+	<!-- Always-visible big code pill in the upper-right -->
+	<div class="spectator-code">
+		<span class="label">Lobby</span>
+		<span class="value" id="codeLabel">-----</span>
+	</div>
+
+	<div class="container spectator-view">
+		<h1 class="title">Boss Battle</h1>
+
+		<div class="card">
+			<div class="bar-block">
+				<div class="hp-label"><span>BOSS HP</span><span id="bossHpLabel">-/-</span></div>
+				<div class="hp-bar"><div class="hp-fill" id="bossHpFill" style="width:100%"></div></div>
+			</div>
+		</div>
+
+		<div class="card boss-stage big-stage" style="margin-top:14px;">
+			<div id="bossSlot"></div>
+			<div class="boss-name">VOIDREND, EATER OF BREADBOARDS</div>
+			<div id="phaseMsg" class="big-phase"></div>
+		</div>
+
+		<div class="card" id="bossActionCard" style="margin-top:14px;display:none;">
+			<div id="bossActionInner"></div>
+		</div>
+
+		<div class="card" style="margin-top:14px;">
+			<h2>Players</h2>
+			<div class="player-cards" id="playerCards"></div>
+		</div>
+	</div>
+
+	<div class="countdown-overlay" id="countdownOverlay">
+		<div class="label" id="countdownLabel">GET READY</div>
+		<div class="number" id="countdownNumber">3</div>
+		<div class="sub" id="countdownSub"></div>
+	</div>
+
+	<div class="toast" id="toast"></div>
+
+	<script src="/js/spectator.js"></script>
+</body>
+</html>
