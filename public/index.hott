@@ -42,9 +42,10 @@
 
 		<div class="card" style="margin-top:18px;">
 			<div class="row">
+				<a class="btn" href="/firmware.hott">Get Arduino Code</a>
 				<a class="btn btn-ghost" href="/teacher.hott">Teacher Console</a>
 				<a class="btn btn-ghost" href="/test.hott">Board Test</a>
-				<span class="dim spacer">Open Board Test to verify a station's wiring without joining a lobby.</span>
+				<span class="dim spacer">First time? Click Get Arduino Code to copy the sketch into the Arduino IDE.</span>
 			</div>
 		</div>
 

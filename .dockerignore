@@ -13,9 +13,6 @@ tsconfig.tsbuildinfo
 *.log
 .DS_Store
 
-# The Arduino sketch isn't part of the web app
-arduino
-
 # Local secrets, if any
 .env
 .env.*

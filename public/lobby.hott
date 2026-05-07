@@ -34,6 +34,7 @@
 				<button class="btn" id="connectBtn">Connect Arduino</button>
 				<button class="btn btn-ghost" id="disconnectBtn" style="display:none;">Disconnect</button>
 				<a class="btn btn-ghost" href="/test.hott" target="_blank" rel="noopener">Test Board ↗</a>
+				<a class="btn btn-ghost" href="/firmware.hott" target="_blank" rel="noopener">Get Code ↗</a>
 				<span class="spacer"></span>
 				<span class="dim" style="font-size:13px;">Plug in your Arduino now so you're ready when the game starts.</span>
 			</div>

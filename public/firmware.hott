@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Arduino Code - Arduino Boss Battle</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+	<div class="container">
+		<div class="nav">
+			<a href="/">Home</a>
+			<a href="/test.hott">Board Test</a>
+		</div>
+
+		<div class="row">
+			<h1 style="margin:0;">Arduino Code</h1>
+			<span class="spacer"></span>
+			<span class="code-pill"><span class="code-label-text">File</span><span class="code-value">ArduinoBoss.ino</span></span>
+		</div>
+
+		<p class="dim">Open the Arduino IDE, create a new sketch, then paste this code in and upload it to your Arduino.</p>
+
+		<div class="card" style="margin-top:14px;">
+			<div class="row" style="gap:10px;flex-wrap:wrap;">
+				<button class="btn" id="copyBtn" type="button">Copy Code</button>
+				<a class="btn btn-ghost" href="/ArduinoBoss.ino" download="ArduinoBoss.ino">Download .ino</a>
+				<span class="spacer"></span>
+				<span class="dim" id="copyStatus" style="min-height:1em;"></span>
+			</div>
+		</div>
+
+		<div class="card" style="margin-top:14px;padding:0;overflow:hidden;">
+			<pre id="codeBlock" style="margin:0;padding:14px;max-height:70vh;overflow:auto;background:#000;color:#5dffa1;font-size:13px;line-height:1.45;white-space:pre;">Loading…</pre>
+		</div>
+	</div>
+
+	<script src="/js/firmware.js"></script>
+</body>
+</html>
