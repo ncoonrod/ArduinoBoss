@@ -7,6 +7,11 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
+# TypeScript is needed at build time but isn't reliably present in the project's
+# node_modules across environments, so install it globally in the build stage.
+# It's a build-only tool — the runtime image below doesn't include it.
+RUN npm install -g typescript
+
 # Copy source and build:
 #   npm run build      → transpile TypeScript to ./build/
 #   npm run build-web  → regenerate the auto-generated browser API client
